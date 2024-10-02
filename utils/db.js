@@ -11,19 +11,23 @@ class DBClient {
     this.client.connect().then( () => {
       this.connected = true;
     });
+  }
+  
+  isAlive() {
+    return this.connected;
+  }
+  
+  async nbUsers() {
+    await this.client.connect();
+    const users = await this.client.db(this.database).collection('users').countDocuments();
+    return users;
+  }
+  async nbUsers() {
+    await this.client.connect();
+    const users = await this.client.db(this.database).collection('users').countDocuments();
+    return users;
+  }
+}
 
-    isAlive() {
-      return this.connected;
-    }
-
-    async nbUsers() {
-      await this.client.connect();
-      const users = await this.client.db(this.database).collection('users').countDocuments();
-      return users;
-    }
-
-    async nbUsers() {
-      await this.client.connect();
-      const users = await this.client.db(this.database).collection('users').countDocuments();
-      return users;
-    }
+const dbClient = new DBClient();
+module.exports = dbClient;  
