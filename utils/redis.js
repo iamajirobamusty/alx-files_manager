@@ -29,3 +29,6 @@ class RedisClient {
     await this.client.del(key);
   }
 }
+
+const redisClient = new RedisClient();
+export default redisClient;
